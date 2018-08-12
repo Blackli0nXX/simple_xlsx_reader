@@ -19,6 +19,17 @@ then forgotten. We just want to get the data, and get out!
 
 That's it!
 
+### Hyperlinks
+
+In the case that a cell contains a hyperlink formula, a Hyperlink object will be returned that will print the cell's URL by default.
+In order to get the cell's text, one must use the Hyperlink object's 'friendly_name' attribute.
+If we have a sheet with '=HYPERLINK("http://example.com","Example Website")' in row 1, column 4:
+
+    first_sheet = SimpleXlsxReader.open('/path/to/workbook.xlsx').sheets.first
+    first_sheet.rows[1][3].class # SimpleXlsxReader::Hyperlink
+    first_sheet.rows[1][3].to_s # "http://example.com"
+    first_sheet.rows[1][3].friendly_name # "HYPERLINK(\"http://example.com\",\"Example Website\")"
+
 ### Load Errors
 
 By default, cell load errors (ex. if a date cell contains the string
